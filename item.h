@@ -9,7 +9,7 @@ using namespace std;
 class item{
 	public:
 	void setName(char* outName);
-	void gerName(char* outName);
+	void getName(char* outName);
 	void print();
 	char name[265];
 };

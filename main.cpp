@@ -11,7 +11,8 @@ int main(){
 	bool play = true;
 	cout << "Welcome to Zuul"<< endl;
 	char input[265];
-	vector<item> Inventory;
+	char print[256];
+	vector<item*> Inventory;
 	room* outside = new room();
 	outside->setName("Outside");	
 	outside->addItem("comp");
@@ -20,6 +21,10 @@ int main(){
 	cout << "What do you want to do(Move, Inventory, Get, Drop, Quit)"<< endl;
 	cin >> input;
 	if(strcmp(input, "Inventory")== 0){
+	  for(int i =0; i < Inventory.size(); i++){
+	    Inventory[i]->getName(print);
+	    cout << print << endl;
+	  }
 }
 	if(strcmp(input, "Move") == 0){
 	
@@ -27,7 +32,7 @@ int main(){
 	if(strcmp(input, "Get") == 0){
 		cout << "What is the name of the item you want to get?" << endl;
 		cin >> input;
-		CurrentRoom->givePlayerItems(Inventory, input;)
+		CurrentRoom->givePlayerItems(Inventory, input);
 }
 	if(strcmp(input, "Drop") == 0){
 
