@@ -15,7 +15,7 @@ class room{
 	char charInput[256];
         void getName(char* charInput);
         void setExit(char* dir, room* exitRoom);
-        void getExit(char* dir, room* cRoom);
+        void getExit(char* dir, room*& cRoom);
         map<char*, room*> mymap;
         map<char*, room*>::iterator it = mymap.begin();
 	void givePlayerItems(vector<item*>& playerInventory, char* outName);

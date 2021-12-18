@@ -17,8 +17,14 @@ int main(){
 	outside->setName("Outside");	
 	outside->addItem("comp");
 	room* CurrentRoom = outside;
+	room* inside = new room();
+	inside->setName("Inside");
+	char* east = (char*)("East");
+	outside->setExit(east, inside);
 	while(play){
 	cout << "What do you want to do(Move, Inventory, Get, Drop, Quit)"<< endl;
+	CurrentRoom->getName(print);
+	cout << print << endl;
 	cin >> input;
 	if(strcmp(input, "Inventory")== 0){
 	  for(int i =0; i < Inventory.size(); i++){
@@ -27,7 +33,9 @@ int main(){
 	  }
 }
 	if(strcmp(input, "Move") == 0){
-	
+	  cout << "North, East, South, or West?";
+	  cin >> input;
+	  CurrentRoom->getExit(input, CurrentRoom);
 }
 	if(strcmp(input, "Get") == 0){
 		cout << "What is the name of the item you want to get?" << endl;
