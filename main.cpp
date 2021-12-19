@@ -1,4 +1,11 @@
-//Main check
+/*
+This is a class that lets you play Zuul and holds all rooms and inventory of player. Uses both room.cpp and item.cpp
+
+Last modified: 12/19/21
+
+By: Kushal Rao
+*/
+//Imports
 #include<iostream>
 #include<cstring>
 #include "item.h"
@@ -10,10 +17,12 @@ using namespace std;
 void intialize();
 
 int main(){
+  //Intialize Variables
   bool play = true;
-  cout << "Welcome to Zuul"<< endl;
   char input[265];
   char print[265];
+  char itemName1[265];
+  char itemName2[256];
   vector<item*> Inventory;
 
   //Intialize Everything
@@ -23,6 +32,7 @@ int main(){
   char* north = (char*)("North");
   char* south = (char*)("South");
 
+  //Create Rooms
   room* outside = new room();
   outside->setName((char*)("Outside"));
   room* computer_lab = new room();
@@ -104,48 +114,69 @@ int main(){
   literature_class->setExit(west, math_class);
   //south bathroom
   south_bathroom->setExit(north , literature_class);
-  
+
+  //Add Items
   office->addItem((char*)("Robot"));
   nurse->addItem((char*)("Backpack"));
-  math_class->addItem((char*)("Math Textbook"));
-  science_lab->addItem((char*)("Science Textbook"));
-  cafeteria->addItem((char*)("Lunch Bag"));
+  math_class->addItem((char*)("Math_Textbook"));
+  science_lab->addItem((char*)("Science_Textbook"));
+  cafeteria->addItem((char*)("Lunch_Bag"));
   
   room* CurrentRoom = outside;
 
-  while(play){
-    CurrentRoom->printDis(print);
-    cout << "What do you want to do(Move, Inventory, Get, Drop, Quit)"<< endl;
+  cout << "Welcome to Zuul"<< endl;//Welcome Player to the game
+
+  while(play){//While user wants to play
+    CurrentRoom->printDis(print);//Print 
+    cout << "What do you want to do (Move, Inventory, Get, Drop, Quit)"<< endl;//What does the User want to do
     cin >> input;
-    if(strcmp(input, "Inventory")== 0){
+    if(strcmp(input, "Inventory")== 0){//If Player wants to check Inventory
       cout << "Inventory:" << endl;
-      for(int i =0; i < Inventory.size(); i++){
-	Inventory[i]->getName(print);
-	cout << print << endl;
+      if(Inventory.size() > 0){
+	for(int i =0; i < Inventory.size(); i++){
+	  Inventory[i]->getName(print);//Print all the names of the Items in Inventory
+	  cout << print << endl;
+	}
+      }
+      else{
+	cout << "No Items" << endl;//If no items say no items
       }
     }
-    if(strcmp(input, "Move") == 0){
+    if(strcmp(input, "Move") == 0){//If user wants to move
       cout << "North, East, South, or West?" << endl;
       cin >> input;
-      CurrentRoom->getExit(input, CurrentRoom);
+      CurrentRoom->getExit(input, CurrentRoom);//Change room
     }
-    if(strcmp(input, "Get") == 0){
+    if(strcmp(input, "Get") == 0){//Grab Item from room
       cout << "What is the name of the item you want to get?" << endl;
       cin >> input;
-      CurrentRoom->givePlayerItems(Inventory, input);
+      CurrentRoom->givePlayerItems(Inventory, input);//Call get item in the room
     }
-    if(strcmp(input, "Drop") == 0){
+    if(strcmp(input, "Drop") == 0){//Drop Item into a room
       cout << "What is the name of the item you want to drop" << endl;
       cin >> input;
-      CurrentRoom->takePlayerItems(Inventory, input);
+      CurrentRoom->takePlayerItems(Inventory, input);//Call drop item in the room
     }
-    if(strcmp(input, "Quit") == 0){
-      play = false;
+    if(strcmp(input, "Quit") == 0){//If user wants to quit
+      play = false;//stop the wile loop
     }
-	
+    else{
+      cout << endl;
+    }
+    if(CurrentRoom == lockers){//Win condition, In the locker room and have backpack and Math Textbook
+      for(int i = 0; i < Inventory.size(); i++){
+	for(int j = 0; j < Inventory.size(); j++){
+	  Inventory[i]->getName(itemName1);
+	  Inventory[j]->getName(itemName2);
+	  if(strcmp(itemName1, "Backpack") && strcmp(itemName2, "Math_Textbook")){//If user had both a backpack and math textbook
+	    cout << "You Win" << endl << "Thanks for playing" << endl;
+	    play = false;//End game
+	  }
+	}
+      }
+    }
   }
   return 0;
 }
 
-void intialize(){
-}
+
