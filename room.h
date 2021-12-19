@@ -13,7 +13,8 @@ class room{
 	vector<item*> roomItems;
 	char name[265];
 	char charInput[256];
-        void getName(char* charInput);
+  void printDis(char* print);
+  void getName(char* charInput);
         void setExit(char* dir, room* exitRoom);
         void getExit(char* dir, room*& cRoom);
         map<char*, room*> mymap;

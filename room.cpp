@@ -50,3 +50,17 @@ void room::getExit(char* dir, room*& cRoom){
     }
   }
 }
+
+void room::printDis(char* print){
+  cout << "Current Room: " << name << endl;
+  cout << "Items:";
+  if(roomItems.size() > 0){
+    for(int i = 0; i < roomItems.size(); i++){
+      roomItems[i]->getName(print);
+      cout << " " << print << endl;
+    }
+  }
+  else{
+    cout << " No Items" << endl;
+  }
+}
