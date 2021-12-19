@@ -11,7 +11,7 @@ int main(){
 	bool play = true;
 	cout << "Welcome to Zuul"<< endl;
 	char input[265];
-	char print[256];
+	char print[265];
 	vector<item*> Inventory;
 	room* outside = new room();
 	outside->setName("Outside");	
@@ -20,6 +20,8 @@ int main(){
 	room* inside = new room();
 	inside->setName("Inside");
 	char* east = (char*)("East");
+	char* west = (char*)("West");
+	inside->setExit(west, outside);
 	outside->setExit(east, inside);
 	while(play){
 	cout << "What do you want to do(Move, Inventory, Get, Drop, Quit)"<< endl;
@@ -33,7 +35,7 @@ int main(){
 	  }
 }
 	if(strcmp(input, "Move") == 0){
-	  cout << "North, East, South, or West?";
+	  cout << "North, East, South, or West?" << endl;
 	  cin >> input;
 	  CurrentRoom->getExit(input, CurrentRoom);
 }
@@ -43,7 +45,9 @@ int main(){
 		CurrentRoom->givePlayerItems(Inventory, input);
 }
 	if(strcmp(input, "Drop") == 0){
-
+	  cout << "What is the name of the item you want to drop" << endl;
+	  cin >> input;
+	  CurrentRoom->takePlayerItems(Inventory, input);
 }
 	if(strcmp(input, "Quit") == 0){
 		play = false;

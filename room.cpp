@@ -29,6 +29,16 @@ void room::givePlayerItems(vector<item*>& playerInventory, char* outName){
 
 	}
 }
+void room::takePlayerItems(vector<item*>& playerInventory, char* outName){
+	for(int i = 0; i < playerInventory.size(); i++){
+		playerInventory[i]->getName(charInput);
+		if(strcmp(outName, charInput)== 0){
+		  roomItems.push_back(playerInventory[i]);
+			playerInventory.erase(playerInventory.begin() +i);			
+		}
+
+	}
+}
 void room::setExit(char* dir, room* exitRoom){
   mymap.insert(pair<char*, room*>(dir, exitRoom));
 }
@@ -37,7 +47,6 @@ void room::getExit(char* dir, room*& cRoom){
   for(it = mymap.begin(); it != mymap.end(); ++it){
     if(strcmp(dir, it->first) == 0){
       cRoom = it->second;
-      cout << "Help" << endl;
     }
   }
 }

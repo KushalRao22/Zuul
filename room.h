@@ -19,6 +19,7 @@ class room{
         map<char*, room*> mymap;
         map<char*, room*>::iterator it = mymap.begin();
 	void givePlayerItems(vector<item*>& playerInventory, char* outName);
+	void takePlayerItems(vector<item*>& playerInventory, char* outName);
 };
 
 
